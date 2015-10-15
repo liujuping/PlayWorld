@@ -1,9 +1,4 @@
 <?php
-/*
-    方倍工作室
-    http://www.cnblogs.com/txw1958/
-    CopyRight 2014 All Rights Reserved
-*/
 
 define("TOKEN", "liujuping");
 
@@ -29,7 +24,7 @@ class wechatCallbackapiTest
         $tmpStr = implode($tmpArr);
         $tmpStr = sha1($tmpStr);
         if($tmpStr == $signature){
-			header('content-type:text');
+            header('content-type:text');
             echo $echoStr;
             exit;
         }
@@ -43,7 +38,7 @@ class wechatCallbackapiTest
             $this->logger("R ".$postStr);
             $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
             $RX_TYPE = trim($postObj->MsgType);
-             
+
             //消息类型分离
             switch ($RX_TYPE)
             {
@@ -100,7 +95,7 @@ class wechatCallbackapiTest
                 switch ($object->EventKey)
                 {
                     case "COMPANY":
-						$content = array();
+                        $content = array();
                         $content[] = array("Title"=>"多图文1标题", "Description"=>"", "PicUrl"=>"http://discuz.comli.com/weixin/weather/icon/cartoon.jpg", "Url" =>"http://m.cnblogs.com/?u=txw1958");
                         break;
                     default:
@@ -160,7 +155,7 @@ class wechatCallbackapiTest
             }else{
                 $content = date("Y-m-d H:i:s",time())."\n".$object->FromUserName."\n技术支持 方倍工作室";
             }
-            
+
             if(is_array($content)){
                 if (isset($content[0]['PicUrl'])){
                     $result = $this->transmitNews($object, $content);
